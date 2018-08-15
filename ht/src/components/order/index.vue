@@ -15,7 +15,8 @@
 
 <script>
     import Tab from './tab.vue';
-    import Find from '../find'
+    import Find from '../find';
+    import Cookies from 'js-cookie';
     export default {
         name:"Order",
         components:{
@@ -42,6 +43,16 @@
             total: function () {
                 return this.$store.state.orderData.orderNum
             }
+        },
+        beforeRouteEnter:(to,from,next)=>{            
+            if(to.path === '/login'){  
+                next()
+            }else { 
+                let cookic = Cookies.get('uuidAndToken');
+                if(to.meta.requiresAuth&&!cookic){
+                    next({ path: '/login' })
+                }else { next() }
+            }   
         },      
     }
 </script>

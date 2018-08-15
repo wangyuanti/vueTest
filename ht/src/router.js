@@ -16,7 +16,7 @@ export default new Router({
       path: '/',
       name: 'Index',
       component: Index,
-      meta: {requiresAuth: false}
+      meta: {requiresAuth: true}
     },
     {
       path: '/user',

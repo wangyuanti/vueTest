@@ -3545,6 +3545,14 @@ js-calendar@^1.2.3:
   version "1.2.3"
   resolved "http://registry.npm.taobao.org/js-calendar/download/js-calendar-1.2.3.tgz#a583b0644b4e695ba394f344d103dbcc7a7a7d3e"
 
+js-cookie@^2.1:
+  version "2.2.0"
+  resolved "http://registry.npm.taobao.org/js-cookie/download/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
+
+js-md5@^0.7.3:
+  version "0.7.3"
+  resolved "http://registry.npm.taobao.org/js-md5/download/js-md5-0.7.3.tgz#b4f2fbb0b327455f598d6727e38ec272cd09c3f2"
+
 js-message@1.0.5:
   version "1.0.5"
   resolved "http://registry.npm.taobao.org/js-message/download/js-message-1.0.5.tgz#2300d24b1af08e89dd095bc1a4c9c9cfcb892d15"
@@ -6158,6 +6166,12 @@ vm-browserify@0.0.4:
 vue-hot-reload-api@^2.3.0:
   version "2.3.0"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"
+
+vue-js-cookie@^2.1.0:
+  version "2.1.0"
+  resolved "http://registry.npm.taobao.org/vue-js-cookie/download/vue-js-cookie-2.1.0.tgz#18ee9d0d38db9e958c48f42903b16168836d22ed"
+  dependencies:
+    js-cookie "^2.1"
 
 vue-loader@^15.3.0:
   version "15.3.0"

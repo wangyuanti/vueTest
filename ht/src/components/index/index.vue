@@ -20,6 +20,7 @@
     import Statistics from './statistics.vue';
     import Tb from './tb.vue';
     import Bulletin from './bulletin.vue';
+    import Cookies from 'js-cookie';
     export default {
         name:"Index",
         components:{
@@ -34,22 +35,18 @@
         data(){
             return{
                  data1:this.$store.state.indexData,
-                 xxx:0
             }  
         },
         beforeRouteEnter:(to,from,next)=>{            
             if(to.path === '/login'){  
                 next()
             }else { 
-                if(to.meta.requiresAuth){
+                let cookic = Cookies.get('uuidAndToken');
+                if(to.meta.requiresAuth&&!cookic){
                     next({ path: '/login' })
                 }else { next() }
             }   
         },
-        beforeRouteLeave: (to, from, next) => {
-            console.log("准备离开路由模板");
-            next();
-        }
     }  
 </script>
 

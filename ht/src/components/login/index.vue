@@ -1,16 +1,17 @@
 <template>
-    <div style="background:#eee;padding: 20px;width:400px">
-        <Card :bordered="false">
+ <Row id="Login">
+    <Col span="8" offset="8" style="background:#eee;padding: 20px;">
+         <Card :bordered="false">
             <p slot="title">管理员登录</p>
             <p>
                 <Form ref="formInline" :model="formInline" :rules="ruleInline" >
                     <FormItem prop="user">
-                        <Input type="text" v-model="formInline.user" placeholder="Username">
+                        <Input type="text" v-model="formInline.user" placeholder="Username" ref="userName">
                             <Icon type="ios-person-outline" slot="prepend"></Icon>
                         </Input>
                     </FormItem>
                     <FormItem prop="password">
-                        <Input type="password" v-model="formInline.password" placeholder="Password">
+                        <Input type="password" v-model="formInline.password" placeholder="Password" ref="password">
                             <Icon type="ios-lock-outline" slot="prepend"></Icon>
                         </Input>
                     </FormItem>
@@ -20,8 +21,8 @@
                 </Form> 
             </p>
         </Card>
-    </div>
-    
+    </Col>
+</Row>
 </template>
 
 <script>
@@ -39,7 +40,7 @@
                     ],
                     password: [
                         { required: true, message: '请输入密码', trigger: 'blur' },
-                        { type: 'string',  trigger: 'blur' }
+                        
                     ]
                 }
             }
@@ -48,11 +49,16 @@
             handleSubmit(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        this.$Message.success('登录成功!');
+                        let _this = this;
+                        this.$store.commit('addLoginData',{userName:this.$refs.userName.value,password:this.$refs.password.value,_this:_this});
+                        this.$store.dispatch('Login');
+                        // this.$Message.success('登录成功!');
                     } else {
-                        this.$Message.error('输入有误');
+                        this.$Message.error('用户名与密码不能为空');
                     }
                 })
+                
+                
             }
         }
 
@@ -61,12 +67,6 @@
 
 <style scoped>
 #Login{
-    background-color: blanchedalmond;
-    width: 100%;
-    height: 200px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 1000000;
+    margin-top: 10%
 }
 </style>

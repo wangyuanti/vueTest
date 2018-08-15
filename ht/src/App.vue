@@ -21,7 +21,12 @@
       components:{
         Table,
         Nav
-      }
+      },
+      data(){
+        return{
+        
+        }
+      },
   }
 </script>
 <style>

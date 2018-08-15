@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import md5 from 'js-md5';
+import Cookies from 'js-cookie';
+import Router from 'vue-router';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-      xxx:{
-        a : 0
-      },
       indexData:{
         staUser:1,
         staGoods:2,
@@ -39,6 +38,12 @@ export default new Vuex.Store({
         sortList:[],
         sortNum:0
       },
+      LoginData:{
+        userName:'',
+        password:'',
+        onOff:false,
+        _this:{}
+      }
   },
   mutations: {
     addStaUser(state,data){
@@ -105,6 +110,15 @@ export default new Vuex.Store({
     addSortPage(state,data){
       state.sortData.sortPagenum=data;
     },
+
+    addLoginData(state,data){
+      state.LoginData.userName=data.userName;
+      state.LoginData.password=md5(data.password);
+      state.LoginData._this=data._this;
+    },
+    addLoginOnOff(state,data){
+      state.LoginData.onOff = data
+    }
   },
   actions: {
     addIndex({commit}){
@@ -233,6 +247,31 @@ export default new Vuex.Store({
           commit('addSortNum',data.data.total);
           commit('addSortList',data.data.list);
       }) 
+    },
+    Login({commit}){
+      let {userName,password,_this} = this.state.LoginData;
+      
+      console.log(userName,password);
+      fetch('/api/?s=App.User.Login&app_key=2509BCB562FA77246FF87A5899CE1527',{
+          method:"post",
+          body :`username=${userName}&password=${password}`,
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+          }
+      })
+      .then((e)=>e.json())
+      .then(data => {
+          if(data.data.err_code == 0){
+            console.log(_this)
+            Cookies.set('uuidAndToken', data.data.uuid+'&'+data.data.token,{ expires: 7 })
+            commit('addLoginOnOff',true);
+            _this.$router.push('/'); 
+            
+          }else{
+            _this.$Message.error('用户名与密码输入有误');
+            commit('addLoginOnOff',false);
+          }
+      })
     },
   }
 })

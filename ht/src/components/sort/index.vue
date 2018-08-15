@@ -15,7 +15,8 @@
 
 <script>
     import Tab from './tab.vue';
-    import Find from '../find'
+    import Find from '../find';
+    import Cookies from 'js-cookie';
     export default {
         name:"Sort",
         components:{
@@ -40,6 +41,16 @@
             total: function () {
                 return this.$store.state.sortData.sortNum
             }
+        },
+        beforeRouteEnter:(to,from,next)=>{            
+            if(to.path === '/login'){  
+                next()
+            }else { 
+                let cookic = Cookies.get('uuidAndToken');
+                if(to.meta.requiresAuth&&!cookic){
+                    next({ path: '/login' })
+                }else { next() }
+            }   
         },      
     }
 </script>
