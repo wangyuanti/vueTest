@@ -21,22 +21,26 @@ export default new Router({
     {
       path: '/user',
       name: 'user',
-      component: User
+      component: User,
+      meta: {requiresAuth: true}
     },
     {
       path: '/order',
       name: 'order',
-      component: Order
+      component: Order,
+      meta: {requiresAuth: true}
     },
     {
       path: '/goods',
       name: 'goods',
-      component: Goods
+      component: Goods,
+      meta: {requiresAuth: true}
     },
     {
       path: '/sort',
       name: 'sort',
-      component: Sort
+      component: Sort,
+      meta: {requiresAuth: true}
     },
     {
       path: '/login',

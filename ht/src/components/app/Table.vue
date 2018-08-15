@@ -4,13 +4,15 @@
             <h1><router-link to="/">后台管理系统</router-link></h1>
         </Col>
         <Col span="20" class="login">
-            <Dropdown class="login-zt">
+            <Dropdown class="login-zt" @on-click="quit">
                 <a href="javascript:void(0)">
-                    <span v-show="userOnOff">欢迎，XXX</span>
+                    <span v-show="userOnOff">欢迎，{{userName}}</span>
+                    <span v-show="!userOnOff" to='/login'>未登录</span>
                     <Icon type="ios-arrow-down"></Icon>
                 </a>
                 <DropdownMenu slot="list">
-                    <DropdownItem>退出登录</DropdownItem>
+                    <DropdownItem v-show="userOnOff">退出登录</DropdownItem>
+                    <DropdownItem v-show="!userOnOff">登录</DropdownItem>
                 </DropdownMenu>
             </Dropdown>           
         </Col>
@@ -18,14 +20,29 @@
 </template>
 
 <script>
+    import Cookies from 'js-cookie';
     export default {
         name:"Table",
         data(){
             return{
-                userOnOff : true
+                // userOnOff : false
+            }   
+        },
+        methods:{
+            quit(){
+                this.$store.commit('addLoginOnOff',false);
+                Cookies.remove('uuidAndToken');
+                this.$router.push('/login');
             }
-            
-        }
+        },
+        computed: {
+            userOnOff: function () {
+                return this.$store.state.LoginData.onOff
+            },
+            userName: function () {
+                return this.$store.state.LoginData.userName
+            },
+        },
     }
 </script>
 
